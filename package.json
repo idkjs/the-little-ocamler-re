@@ -1,0 +1,24 @@
+{
+  "name": "the-little-ocamler",
+  "version": "1.0.0",
+  "description": "Most of the code examples from [The Little MLer](http://www.ccs.neu.edu/home/matthias/BTML/index.html), a wonderful book from the \"Little `X`er\" series, in **OCaml** and **ReasonML**.",
+  "main": "index.js",
+  "devDependencies": {
+    "bs-platform": "^7.3.0"
+  },
+  "scripts": {
+    "start": "bsb -make-world -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idkjs/the-little-ocamler.git"
+  },
+  "keywords": [],
+  "author": "Alain Armand <aarmand.inbox@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/idkjs/the-little-ocamler/issues"
+  },
+  "homepage": "https://github.com/idkjs/the-little-ocamler#readme"
+}
