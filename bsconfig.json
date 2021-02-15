@@ -1,10 +1,10 @@
 {
   "name": "mandalarian",
   "version": "0.1.0",
-  "sources": {
-    "dir" : "reasonbs",
+  "sources": [{
+    "dir" : "rescript",
     "subdirs" : true
-  },
+  }],
   "package-specs": {
     "module": "commonjs",
     "in-source": true
