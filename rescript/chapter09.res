@@ -56,7 +56,7 @@ exception Out_of_range
 
 let rec list_item = x =>
   switch x {
-  | (n, Empty) => raise(Out_of_range)
+  | (_n, Empty) => raise(Out_of_range)
   | (n, @implicit_arity Cons(a_box, rest)) =>
     if eq_int((n, 1)) {
       a_box
