@@ -14,11 +14,11 @@ let pred = n =>
 
 let succ = n => n + 1
 
-let rec plus = ((n, m)) =>
+let rec plus' = ((n, m)) =>
   if is_zero(n) {
     m
   } else {
-    succ(plus((pred(n), m)))
+    succ(plus'((pred(n), m)))
   }
 
 /* 5 */
@@ -29,7 +29,7 @@ type rec num =
 let is_zero = x =>
   switch x {
   | Zero => true
-  | not_zero => false
+  | _ => false
   }
 
 let pred = x =>
@@ -58,9 +58,9 @@ module type N = {
 
 /* 26 */
 module NumberAsNum0 = (): N => {
-  type rec num =
-    | Zero
-    | One_more_than(num)
+  // type num =
+  //   | Zero
+  //   | One_more_than(num);
   type number = num
   exception Too_small
   let succ = n => One_more_than(n)
@@ -72,7 +72,7 @@ module NumberAsNum0 = (): N => {
   let is_zero = x =>
     switch x {
     | Zero => true
-    | a_num => false
+    | _ => false
     }
 }
 
@@ -208,20 +208,22 @@ module type S = {
 }
 
 /* 115 */
-module Same = (Na: N, Nb: N) : (S with type number1 = (Na.number with type number2 =Nb.number)) => {
+module Same = (Na: N, Nb: N): (
+  S with type number1 = Na.number and type number2 = Nb.number
+) => {
   type number1 = Na.number
   type number2 = Nb.number
-  let rec sim = ((n, m)) =>{
+  let rec sim = ((n, m)) =>
     if Na.is_zero(n) {
       Nb.is_zero(m)
     } else {
       sim((Na.pred(n), Nb.pred(m)))
-    }}
-  let similar = ((n, m)) =>{
+    }
+  let similar = ((n, m)) =>
     try sim((n, m)) catch {
     | Na.Too_small => false
     | Nb.Too_small => false
-    }}
+    }
 }
 
 /* 118 */
@@ -238,7 +240,10 @@ module type J = {
   let new_plus: ((int, int)) => int
 }
 
-module NP = (Na: N_C_R with type number = int, Pa: P with type number = int): J => {
+module NP = (
+  Na: N_C_R with type number = int,
+  Pa: P with type number = int,
+): J => {
   let new_plus = ((x, y)) => Na.reveal(Pa.plus((Na.conceal(x), Na.conceal(y))))
 }
 
@@ -260,7 +265,7 @@ module NPStruct = NP(
   },
   {
     type number = int
-    let rec plus = ((x, y)) => x + y
+    let plus = ((x, y)) => x + y
   },
 )
 
