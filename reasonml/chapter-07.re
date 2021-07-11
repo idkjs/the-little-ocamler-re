@@ -2,7 +2,7 @@
 let identity = x => x;
 
 /* 5 */
-let true_maker = x => true;
+let true_maker = _x => true;
 
 /* 7 */
 type bool_or_int =
@@ -12,7 +12,7 @@ type bool_or_int =
 /* 11 */
 /* Constructors are not functions in OCaml,
  * so the definition for this is a bit different. */
-let hot_maker = (x, x) => Hot(x);
+let hot_maker = (_, x) => Hot(x);
 
 /* 20 */
 let help = f =>
@@ -31,10 +31,10 @@ type chain =
   | Link(int, int => chain);
 
 /* 50 */
-let rec ints = n => [@implicit_arity] Link(n + 1, ints);
+let rec ints = n =>  Link(n + 1, ints);
 
 /* 58 */
-let rec skips = n => [@implicit_arity] Link(n + 2, ints);
+let rec skips = n =>  Link(n + 2, ints);
 
 /* 61 */
 let eq_int = ((n: int, m: int)) => n == m;
@@ -46,13 +46,13 @@ let is_mod_5_or_7 = n => divides_evenly((n, 5)) || divides_evenly((n, 7));
 /* 62 */
 let rec some_ints = n =>
   if (is_mod_5_or_7(n + 1)) {
-    [@implicit_arity] Link(n + 1, some_ints);
+     Link(n + 1, some_ints);
   } else {
     some_ints(n + 1);
   };
 
 /* 83 */
-let rec chain_item = ((n, [@implicit_arity] Link(i, f))) =>
+let rec chain_item = ((n,  Link(i, f))) =>
   if (eq_int((n, 1))) {
     i;
   } else {
@@ -87,16 +87,16 @@ let is_prime = n => {
 /* 96 */
 let rec primes = n =>
   if (is_prime(n + 1)) {
-    [@implicit_arity] Link(n + 1, primes);
+     Link(n + 1, primes);
   } else {
     primes(n + 1);
   };
 
 /* 98 */
-let rec fibs = (n, m) => [@implicit_arity] Link(n + m, fibs(m));
+let rec fibs = (n, m) =>  Link(n + m, fibs(m));
 
 /* 109 */
-let fibs_1 = m => [@implicit_arity] Link(1 + m, fibs(m));
+let fibs_1 = m =>  Link(1 + m, fibs(m));
 
 /* 117 */
-let fibs_2 = m => [@implicit_arity] Link(2 + m, fibs(m));
+let fibs_2 = m =>  Link(2 + m, fibs(m));

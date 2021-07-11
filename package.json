@@ -4,9 +4,10 @@
   "description": "Most of the code examples from [The Little MLer](http://www.ccs.neu.edu/home/matthias/BTML/index.html), a wonderful book from the \"Little `X`er\" series, in **OCaml** and **ReasonML**.",
   "main": "index.js",
   "devDependencies": {
-    "bs-platform": "^7.3.0"
+    "bs-platform": "^9.0.2"
   },
   "scripts": {
+    "format":"find ./reasonbs/anchovy -name *.re -or -name *.rei | grep -v node_modules | xargs bsrefmt --in-place ",
     "start": "bsb -make-world -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

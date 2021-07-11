@@ -41,19 +41,19 @@ let eq_main =
   | (Ravioli, Ravioli) => true
   | (Chicken, Chicken) => true
   | (Eggplant, Eggplant) => true
-  | (a_main, another_main) => false;
+  | _ => false;
 
 /* 54 */
 let has_steak =
   fun
-  | (meza, Steak, dessert) => true
-  | (meza, main, dessert) => false;
+  | (_, Steak, _) => true
+  | _ => false;
 
 /* 66 */
 let has_steak: ((meza, main, dessert)) => bool =
   fun
-  | (a, Steak, d) => true
-  | (a, ns, d) => false;
+  | (_, Steak, _) => true
+  | _ => false;
 
 /* 67 */
 let add_a_steak: meza => (meza, main) = x => (x, Steak);

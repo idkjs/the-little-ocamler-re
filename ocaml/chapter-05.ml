@@ -87,7 +87,7 @@ let rec subst_int =
       then Topping (n, subst_int (n, a, p))
       else Topping (t, subst_int (n, a, p))
 
-(* 71 *)
+(* 71 *)open Chapter01
 let rec eq_num =
   function
     Zero, Zero -> true

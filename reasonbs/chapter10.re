@@ -69,7 +69,7 @@ module NumberAsNum0 = (()) : N => {
   let is_zero =
     fun
     | Zero => true
-    | a_num => false;
+    | _a_num => false;
 };
 
 module NumberAsInt0 = (()) : N => {

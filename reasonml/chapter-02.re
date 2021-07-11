@@ -10,15 +10,15 @@ let rec only_onions =
   fun
   | Skewer => true
   | Onion(x) => only_onions(x)
-  | Lamb(x) => false
-  | Tomato(x) => false;
+  | Lamb(_x) => false
+  | Tomato(_x) => false;
 
 /* 63 */
 let rec is_vegetarian =
   fun
   | Skewer => true
   | Onion(x) => is_vegetarian(x)
-  | Lamb(x) => false
+  | Lamb(_x) => false
   | Tomato(x) => is_vegetarian(x);
 
 /* 64 */
@@ -43,9 +43,9 @@ type plate =
 /* 73 */
 let rec is_veggie =
   fun
-  | Bottom(x) => true
+  | Bottom(_x) => true
   | Onion(x) => is_veggie(x)
-  | Lamb(x) => false
+  | Lamb(_x) => false
   | Tomato(x) => is_veggie(x);
 
 /* 108 */

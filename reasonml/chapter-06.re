@@ -52,12 +52,12 @@ let eq_fruit =
   | (Pear, Pear) => true
   | (Lemon, Lemon) => true
   | (Fig, Fig) => true
-  | (a_fruit, another_fruit) => false;
+  | (_, _) => false;
 
 /* 41 */
 let rec subst_in_tree =
   fun
-  | (n, a, Bud) => Bud
+  | (_, _, Bud) => Bud
   | (n, a,  Flat(f, t)) =>
     if (eq_fruit((f, a))) {
        Flat(n, subst_in_tree((n, a, t)));
@@ -65,13 +65,13 @@ let rec subst_in_tree =
        Flat(f, subst_in_tree((n, a, t)));
     }
   | (n, a,  Split(s, t)) =>
-    
+
     Split(subst_in_tree((n, a, s)), subst_in_tree((n, a, t)));
 
 /* 43 */
 let rec occurs =
   fun
-  | (n, Bud) => 0
+  | (_, Bud) => 0
   | (n,  Flat(f, t)) =>
     if (eq_fruit((n, f))) {
       1 + occurs((n, t));
@@ -91,7 +91,7 @@ and sexp('a) =
 /* 57 */
 let rec occurs_in_slist =
   fun
-  | (a, Empty) => 0
+  | (_, Empty) => 0
   | (a,  Scons(s, y)) =>
     occurs_in_sexp((a, s)) + occurs_in_slist((a, y))
 and occurs_in_sexp =
@@ -107,9 +107,9 @@ and occurs_in_sexp =
 /* 58 */
 let rec subst_in_slist =
   fun
-  | (n, a, Empty) => Empty
+  | (_, _, Empty) => Empty
   | (n, a,  Scons(s, y)) =>
-    
+
     Scons(subst_in_sexp((n, a, s)), subst_in_slist((n, a, y)))
 and subst_in_sexp =
   fun
@@ -125,28 +125,28 @@ and subst_in_sexp =
 let rec eq_fruit_in_atom =
   fun
   | (a, An_atom(s)) => eq_fruit((a, s))
-  | (a_fruit, A_slist(y)) => false;
+  | (_, A_slist(_)) => false;
 
 /* 68 */
 let rec rem_from_slist =
   fun
-  | (a, Empty) => Empty
+  | (_, Empty) => Empty
   | (a,  Scons(s, y)) =>
     if (eq_fruit_in_atom((a, s))) {
       rem_from_slist((a, y));
     } else {
-      
+
       Scons(rem_from_sexp((a, s)), rem_from_slist((a, y)));
     }
 and rem_from_sexp =
   fun
-  | (a, An_atom(b)) => An_atom(b)
+  | (_, An_atom(b)) => An_atom(b)
   | (a, A_slist(y)) => A_slist(rem_from_slist((a, y)));
 
 /* 76 */
 let rec rem_from_slist =
   fun
-  | (a, Empty) => Empty
+  | (_, Empty) => Empty
   | (a,  Scons(An_atom(b), y)) =>
     if (eq_fruit((a, b))) {
       rem_from_slist((a, y));
@@ -154,5 +154,5 @@ let rec rem_from_slist =
        Scons(An_atom(b), rem_from_slist((a, y)));
     }
   | (a,  Scons(A_slist(x), y)) =>
-    
+
     Scons(A_slist(rem_from_slist((a, x))), rem_from_slist((a, y)));

@@ -12,12 +12,12 @@ type box =
 let is_bacon =
   fun
   | Bacon => true
-  | Ix(n) => false;
+  | Ix(_) => false;
 
 let rec where_is =
   fun
   | Empty => 0
-  | [@implicit_arity] Cons(a_box, rest) =>
+  |  Cons(a_box, rest) =>
     if (is_bacon(a_box)) {
       1;
     } else {
@@ -30,7 +30,7 @@ exception No_bacon(int);
 let rec where_is =
   fun
   | Empty => raise(No_bacon(0))
-  | [@implicit_arity] Cons(a_box, rest) =>
+  |  Cons(a_box, rest) =>
     if (is_bacon(a_box)) {
       1;
     } else {
@@ -42,10 +42,10 @@ let rec where_is =
  * which is nonsense and leads to a syntax error. */
 try (
   where_is(
-    [@implicit_arity]
+
     Cons(
       Ix(5),
-      [@implicit_arity] Cons(Ix(13), [@implicit_arity] Cons(Ix(8), Empty)),
+       Cons(Ix(13),  Cons(Ix(8), Empty)),
     ),
   )
 ) {
@@ -59,8 +59,8 @@ exception Out_of_range;
 
 let rec list_item =
   fun
-  | (n, Empty) => raise(Out_of_range)
-  | (n, [@implicit_arity] Cons(a_box, rest)) =>
+  | (_, Empty) => raise(Out_of_range)
+  | (n,  Cons(a_box, rest)) =>
     if (eq_int((n, 1))) {
       a_box;
     } else {
@@ -74,29 +74,29 @@ let rec find = ((n, boxes)) =>
   }
 and check =
   fun
-  | (n, boxes, Bacon) => n
-  | (n, boxes, Ix(i)) => find((i, boxes));
+  | (n, _, Bacon) => n
+  | (_, boxes, Ix(i)) => find((i, boxes));
 
 /* 75 */
 let t =
-  [@implicit_arity]
+
   Cons(
     Ix(5),
-    [@implicit_arity]
+
     Cons(
       Ix(4),
-      [@implicit_arity]
+
       Cons(
         Bacon,
-        [@implicit_arity]
-        Cons(Ix(2), [@implicit_arity] Cons(Ix(3), Empty)),
+
+        Cons(Ix(2),  Cons(Ix(3), Empty)),
       ),
     ),
   );
 
 /* 98 */
 let rec path = ((n, boxes)) =>
-  [@implicit_arity]
+
   Cons(
     n,
     try (check((boxes, list_item((n, boxes))))) {
@@ -105,5 +105,5 @@ let rec path = ((n, boxes)) =>
   )
 and check =
   fun
-  | (boxes, Bacon) => Empty
+  | (_, Bacon) => Empty
   | (boxes, Ix(i)) => path((i, boxes));
