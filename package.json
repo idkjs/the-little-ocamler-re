@@ -9,6 +9,7 @@
   "scripts": {
     "format":"find ./reasonbs/anchovy -name *.re -or -name *.rei | grep -v node_modules | xargs bsrefmt --in-place ",
     "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
