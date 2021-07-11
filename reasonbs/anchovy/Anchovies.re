@@ -9,7 +9,6 @@ type fish =
   | Lox
   | Tuna;
 
-
 /* 11 */
 let rec rem_anchovy' =
   fun
@@ -17,7 +16,6 @@ let rec rem_anchovy' =
   | Topping((Anchovy, p)) => rem_anchovy'(p)
   | Topping((Tuna, p)) => Topping((Tuna, rem_anchovy'(p)))
   | Topping((Lox, p)) => Topping((Lox, rem_anchovy'(p)));
-
 
 let rec rem_anchovy2 =
   fun

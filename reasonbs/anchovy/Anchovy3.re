@@ -7,5 +7,3 @@ let rec rem_anchovy =
     [@implicit_arity] Topping(Tuna, rem_anchovy(p))
   | [@implicit_arity] Topping(Lox, p) =>
     [@implicit_arity] Topping(Lox, rem_anchovy(p));
-
-
